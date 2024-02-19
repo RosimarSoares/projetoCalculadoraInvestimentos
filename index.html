@@ -15,7 +15,8 @@
       <form id="investiment-form" class="w-full">
         <div class="flex w-full flex-col px-6 my-2 h-[4.25rem]">
           <label for="starting-amount" class="font-bold text-gray-700"
-            >Investimento inicial</label>
+            >Investimento inicial</label
+          >
           <div class="flex">
             <input
               value="R$"
@@ -136,11 +137,22 @@
         >
           Calcular
         </button>
-        <button id="clear-form" class="w-1/2 rounded-lg hover:bg-emerald-500">Limpar</button>
+        <button id="clear-form" class="w-1/2 rounded-lg hover:bg-emerald-500">
+          Limpar
+        </button>
       </div>
     </aside>
-    <main>
-      <p>Resultados</p>
+    <main class="h-full">
+      <section id="charts-container">
+        <div class="h-[36dvh]">
+          <p>Resultado Final</p>
+          <canvas id="final-money-distribution"></canvas>
+        </div>
+        <div class="h-[56dvh]">
+          <p>Progressão</p>
+          <canvas id="progression"></canvas>
+        </div>
+      </section>
     </main>
   </body>
 </html>
