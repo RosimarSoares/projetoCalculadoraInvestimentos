@@ -1,5 +1,6 @@
 import { generateReturnsArray } from "./src/investmentGoals";
 import { Chart } from "chart.js/auto";
+import { createTable } from "./src/table";
 
 const finalMoneyChart = document.getElementById("final-money-distribution");
 const progressionChart = document.getElementById("progression");
@@ -9,8 +10,32 @@ const clearFormButton = document.getElementById("clear-form");
 let doughnutChartReference = {};
 let progressionChartReference = {};
 
+const columnsArray = [
+  { columnLabel: "Mês", accessor: "month" },
+  {
+    columnLabel: "Total investido",
+    accessor: "investedAmount",
+    format: (numberInfo) => formatCurrancy(numberInfo)
+  },
+  {
+    columnLabel: "Rendimento mensal",
+    accessor: "interestReturns",
+    format: (numberInfo) => formatCurrancy(numberInfo)
+  },
+  {
+    columnLabel: "Rendimento Total",
+    accessor: "totalInterestReturns",
+    format: (numberInfo) => formatCurrancy(numberInfo),
+  },
+  {
+    columnLabel: "Quantia Total",
+    accessor: "totalAmount",
+    format: (numberInfo) => formatCurrancy(numberInfo),
+  },
+];
+
 function formatCurrancy(value) {
-  return value.toFixed(2);
+  return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
 function renderProgression(event) {
@@ -51,7 +76,7 @@ function renderProgression(event) {
     taxRate
   );
 
-  const finalInvestmentObject = returnsArray[returnsArray.length - 1];
+  /* const finalInvestmentObject = returnsArray[returnsArray.length - 1];
 
   doughnutChartReference = new Chart(finalMoneyChart, {
     type: "doughnut",
@@ -111,7 +136,9 @@ function renderProgression(event) {
         },
       },
     },
-  });
+  }); */
+
+  createTable(columnsArray, returnsArray, "results-table");
 }
 
 function isObjectEmpty(obj) {
@@ -182,6 +209,6 @@ for (const formElement of form) {
   }
 }
 
-//form.addEventListener("submit", renderProgression);
+form.addEventListener("submit", renderProgression);
 //calculateButton.addEventListener("click", renderProgression);
 clearFormButton.addEventListener("click", clearForm);
